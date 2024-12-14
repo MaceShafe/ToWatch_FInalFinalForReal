@@ -16,7 +16,7 @@ namespace ToWatch_FInalFinalForReal.Models
         [StringLength(100)]
         public required string Name { get; set; }
 
-        public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<Movie>? Movies { get; set; }
 
 //App will be intended for offline use, no need for emails and passwords,
 //it'll just have your name, maybe there's a better way to do this

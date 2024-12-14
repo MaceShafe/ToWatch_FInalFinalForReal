@@ -21,14 +21,18 @@ namespace ToWatch_FInalFinalForReal.Models
         public string? Description { get; set; }
         [MaxLength(1)]
         public int Rating {  get; set; } 
-        public int PriorityID { get; set; }
+        public Status status { get; set; }
+        public int PriorityId { get; set; }
 
         [ForeignKey("PriorityId")]
-        public Priority Priority { get; set; }
+        public Priority? Priority { get; set; }
 
-        public int UserID { get; set; }
-        [ForeignKey("UserID")]
-        public User? User { get; set; }
+
+        public virtual ICollection<User>? Users { get; set; } = new List<User>();
+
+        public virtual ICollection<Genre>? Genres { get; set; }
+
+
 
     }
 }
