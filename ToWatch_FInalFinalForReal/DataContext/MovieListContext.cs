@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ToWatch_FInalFinalForReal.Migrations;
+//using ToWatch_FInalFinalForReal.Migrations;
 using ToWatch_FInalFinalForReal.Models;
 
 namespace ToWatch_FInalFinalForReal.Data
 {
-    internal class MoviesContext : DbContext
+    public class MoviesContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 => optionsBuilder.UseSqlServer(
@@ -25,7 +25,7 @@ namespace ToWatch_FInalFinalForReal.Data
 
                 // Seed Movies
                 modelBuilder.Entity<Movie>().HasData(
-                    new Movie { Id = 1, Title = "Avengers"});
+                    new Movie { MovieID = 1, Title = "Avengers"});
 
                 // Seed Genres
                 modelBuilder.Entity<Genre>().HasData(
@@ -33,15 +33,15 @@ namespace ToWatch_FInalFinalForReal.Data
                     new Genre { ID = 2, Name = "Superhero" },
                     new Genre { ID = 3, Name = "Drama" });
 
-                modelBuilder.Entity<Movie>()
-                .HasMany(m => m.Users)
-                .WithMany(u => u.Movies)
-                .UsingEntity(j => j.ToTable("MovieUsers")); // Custom join table (optional, EF will create one automatically)
+            //modelBuilder.Entity<Movie>()
+            //.HasMany(m => m.Users)
+            //.WithMany(u => u.Movies)
+            //.UsingEntity(j => j.ToTable("MovieUsers")); // Custom join table (optional, EF will create one automatically)
 
-            modelBuilder.Entity<Movie>()
-    .HasData(
-        new { MovieId = 1, UserId = 1 }
-    );
+            //        modelBuilder.Entity<Movie>()
+            //.HasData(
+            //    new { MovieId = 1, UserId = 1 }
+            //);
 
         }
     }

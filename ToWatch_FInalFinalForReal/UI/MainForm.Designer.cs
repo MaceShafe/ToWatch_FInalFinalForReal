@@ -29,68 +29,57 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            btnAdd = new Button();
-            btnEdit = new Button();
+            btnEditGenreList = new Button();
+            btnSave = new Button();
             dataGridViewMovies = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             titleDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             descriptionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ratingDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             statusDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             priorityIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             priorityDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            userIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            userDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             genresDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             movieBindingSource = new BindingSource(components);
             genreBindingSource = new BindingSource(components);
-            comboBox1 = new ComboBox();
+            genrePickBox = new ComboBox();
+            label1 = new Label();
+            debugText = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMovies).BeginInit();
             ((System.ComponentModel.ISupportInitialize)movieBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)genreBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // btnAdd
+            // btnEditGenreList
             // 
-            btnAdd.Location = new Point(12, 12);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(138, 37);
-            btnAdd.TabIndex = 1;
-            btnAdd.Text = "Add Movie";
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
+            btnEditGenreList.Location = new Point(625, 79);
+            btnEditGenreList.Name = "btnEditGenreList";
+            btnEditGenreList.Size = new Size(190, 41);
+            btnEditGenreList.TabIndex = 1;
+            btnEditGenreList.Text = "Edit Genres";
+            btnEditGenreList.UseVisualStyleBackColor = true;
+            btnEditGenreList.Click += btnAdd_Click;
             // 
-            // btnEdit
+            // btnSave
             // 
-            btnEdit.Location = new Point(156, 12);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(138, 37);
-            btnEdit.TabIndex = 2;
-            btnEdit.Text = "Edit Movie";
-            btnEdit.UseVisualStyleBackColor = true;
-            btnEdit.Click += btnEdit_Click;
+            btnSave.Location = new Point(677, 512);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(138, 37);
+            btnSave.TabIndex = 2;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // dataGridViewMovies
             // 
             dataGridViewMovies.AutoGenerateColumns = false;
             dataGridViewMovies.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewMovies.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, titleDataGridViewTextBoxColumn, descriptionDataGridViewTextBoxColumn, ratingDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, priorityIdDataGridViewTextBoxColumn, priorityDataGridViewTextBoxColumn, userIDDataGridViewTextBoxColumn, userDataGridViewTextBoxColumn, genresDataGridViewTextBoxColumn });
+            dataGridViewMovies.Columns.AddRange(new DataGridViewColumn[] { titleDataGridViewTextBoxColumn, descriptionDataGridViewTextBoxColumn, ratingDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, priorityIdDataGridViewTextBoxColumn, priorityDataGridViewTextBoxColumn, genresDataGridViewTextBoxColumn });
             dataGridViewMovies.DataSource = movieBindingSource;
-            dataGridViewMovies.Location = new Point(12, 78);
+            dataGridViewMovies.Location = new Point(12, 137);
             dataGridViewMovies.Name = "dataGridViewMovies";
             dataGridViewMovies.RowHeadersWidth = 51;
-            dataGridViewMovies.Size = new Size(776, 360);
+            dataGridViewMovies.Size = new Size(803, 339);
             dataGridViewMovies.TabIndex = 3;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.MinimumWidth = 6;
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            idDataGridViewTextBoxColumn.Visible = false;
-            idDataGridViewTextBoxColumn.Width = 125;
             // 
             // titleDataGridViewTextBoxColumn
             // 
@@ -141,24 +130,6 @@
             priorityDataGridViewTextBoxColumn.Name = "priorityDataGridViewTextBoxColumn";
             priorityDataGridViewTextBoxColumn.Width = 125;
             // 
-            // userIDDataGridViewTextBoxColumn
-            // 
-            userIDDataGridViewTextBoxColumn.DataPropertyName = "UserID";
-            userIDDataGridViewTextBoxColumn.HeaderText = "UserID";
-            userIDDataGridViewTextBoxColumn.MinimumWidth = 6;
-            userIDDataGridViewTextBoxColumn.Name = "userIDDataGridViewTextBoxColumn";
-            userIDDataGridViewTextBoxColumn.Visible = false;
-            userIDDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // userDataGridViewTextBoxColumn
-            // 
-            userDataGridViewTextBoxColumn.DataPropertyName = "User";
-            userDataGridViewTextBoxColumn.HeaderText = "User";
-            userDataGridViewTextBoxColumn.MinimumWidth = 6;
-            userDataGridViewTextBoxColumn.Name = "userDataGridViewTextBoxColumn";
-            userDataGridViewTextBoxColumn.Visible = false;
-            userDataGridViewTextBoxColumn.Width = 125;
-            // 
             // genresDataGridViewTextBoxColumn
             // 
             genresDataGridViewTextBoxColumn.DataPropertyName = "Genres";
@@ -175,35 +146,59 @@
             // 
             genreBindingSource.DataSource = typeof(Models.Genre);
             // 
-            // comboBox1
+            // genrePickBox
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(637, 17);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 4;
+            genrePickBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            genrePickBox.FormattingEnabled = true;
+            genrePickBox.Location = new Point(625, 40);
+            genrePickBox.Name = "genrePickBox";
+            genrePickBox.RightToLeft = RightToLeft.No;
+            genrePickBox.Size = new Size(190, 28);
+            genrePickBox.TabIndex = 4;
+            genrePickBox.DropDown += genrePickBox_DropDown;
+            genrePickBox.SelectedIndexChanged += genrePickBox_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(625, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(57, 20);
+            label1.TabIndex = 5;
+            label1.Text = "Genres:";
+            // 
+            // debugText
+            // 
+            debugText.AutoSize = true;
+            debugText.Location = new Point(24, 100);
+            debugText.Name = "debugText";
+            debugText.Size = new Size(79, 20);
+            debugText.TabIndex = 6;
+            debugText.Text = "debugText";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
+            ClientSize = new Size(827, 561);
+            Controls.Add(debugText);
+            Controls.Add(label1);
+            Controls.Add(genrePickBox);
             Controls.Add(dataGridViewMovies);
-            Controls.Add(btnEdit);
-            Controls.Add(btnAdd);
+            Controls.Add(btnSave);
+            Controls.Add(btnEditGenreList);
             Name = "MainForm";
             Text = "MovieList";
-            Load += MovieList_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewMovies).EndInit();
             ((System.ComponentModel.ISupportInitialize)movieBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)genreBindingSource).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-        private Button btnAdd;
-        private Button btnEdit;
+        private Button btnEditGenreList;
+        private Button btnSave;
         private DataGridView dataGridViewMovies;
         private BindingSource movieBindingSource;
         private BindingSource genreBindingSource;
@@ -217,6 +212,8 @@
         private DataGridViewTextBoxColumn userIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn userDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn genresDataGridViewTextBoxColumn;
-        private ComboBox comboBox1;
+        private ComboBox genrePickBox;
+        private Label label1;
+        private Label debugText;
     }
 }

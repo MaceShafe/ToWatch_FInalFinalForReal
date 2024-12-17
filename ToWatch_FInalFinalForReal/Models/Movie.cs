@@ -11,18 +11,18 @@ namespace ToWatch_FInalFinalForReal.Models
     public class Movie
     {
         [Key]
-        public int Id { get; set; }
+        public int MovieID { get; set; }
 
-        [Required]
+        [Required]  
         [MaxLength(200)]
         public required string Title { get; set; }
 
         [StringLength(400)]
         public string? Description { get; set; }
         [MaxLength(1)]
-        public int Rating {  get; set; } 
-        public Status status { get; set; }
-        public int PriorityId { get; set; }
+        public int? Rating {  get; set; } 
+        public Status? status { get; set; }
+        public int? PriorityId { get; set; }
 
         [ForeignKey("PriorityId")]
         public Priority? Priority { get; set; }

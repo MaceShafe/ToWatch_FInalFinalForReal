@@ -1,6 +1,9 @@
 using ToWatch_FInalFinalForReal.UI;
 using Microsoft.EntityFrameworkCore;
 using ToWatch_FInalFinalForReal.Data;
+using System.ComponentModel;
+using ToWatch_FInalFinalForReal.Models;
+using System.Linq;
 
 
 
@@ -8,6 +11,8 @@ namespace ToWatch_FInalFinalForReal
 {
     public partial class MainForm : Form
     {
+
+
         private MoviesContext? dbContext;
         public MainForm()
         {
@@ -18,20 +23,24 @@ namespace ToWatch_FInalFinalForReal
         {
             base.OnLoad(e);
 
-            this.dbContext = new ();
-
-            // Uncomment the line below to start fresh with a new database.
-            this.dbContext.Database.EnsureDeleted();
+            MoviesContext? moviesContext = this.dbContext;
+            if (moviesContext == null)
+            {
+                this.dbContext = new MoviesContext();
+                moviesContext = this.dbContext;
+            }
             this.dbContext.Database.EnsureCreated();
 
             this.dbContext.Movies.Load();
-
-            //this.categoryBindingSource.DataSource = dbContext.Categories.Local.ToBindingList();
+            this.movieBindingSource.DataSource = dbContext.Movies.Local.ToBindingList();
         }
 
-
-        private void MovieList_Load(object sender, EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
+            base.OnClosing(e);
+
+            this.dbContext?.Dispose();
+            this.dbContext = null;
 
         }
 
@@ -42,9 +51,28 @@ namespace ToWatch_FInalFinalForReal
             newMoviesForm.ShowDialog();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+
+
+        private void genrePickBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+
+        }
+
+        private void genrePickBox_DropDown(object sender, EventArgs e)
+        {
+            int genreNum = dbContext.Genres.Count();
+            var allgenres = dbContext.Genres.ToList();
+
+            debugText.Text = allgenres.ToString();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.dbContext!.SaveChanges();
+
+            this.dataGridViewMovies.Refresh();
         }
     }
 }
+
