@@ -136,7 +136,7 @@ namespace ToWatch_FInalFinalForReal.Migrations
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "MovieID", "Description", "GenreId", "PriorityId", "Rating", "Title", "status" },
-                values: new object[] { 1, null, 0, null, null, "Avengers", null });
+                values: new object[] { 1, null, 1, null, null, "Avengers", null });
 
             migrationBuilder.InsertData(
                 table: "Users",

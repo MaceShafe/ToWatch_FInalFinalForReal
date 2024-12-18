@@ -8,7 +8,7 @@ namespace ToWatch_FInalFinalForReal.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 => optionsBuilder.UseSqlServer(
-    "Data Source = (LocalDB)\\MSSQLLocalDB;Initial Catalog = MovieToWatch_FinalFinal;Integrated Security = True"
+    "Data Source = (LocalDB)\\MSSQLLocalDB;Initial Catalog = MovieToWatch_2;Integrated Security = True"
     );
 
         public virtual DbSet<Movie> Movies { get; set; }
