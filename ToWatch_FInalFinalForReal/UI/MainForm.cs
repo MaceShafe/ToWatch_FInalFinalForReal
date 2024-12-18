@@ -1,4 +1,3 @@
-using ToWatch_FInalFinalForReal.UI;
 using Microsoft.EntityFrameworkCore;
 using ToWatch_FInalFinalForReal.Data;
 using System.ComponentModel;
@@ -32,7 +31,11 @@ namespace ToWatch_FInalFinalForReal
             this.dbContext.Database.EnsureCreated();
 
             this.dbContext.Movies.Load();
+            this.dbContext.Genres.Load();
             this.movieBindingSource.DataSource = dbContext.Movies.Local.ToBindingList();
+            this.genreBindingSource.DataSource = dbContext.Genres.Local.ToBindingList();
+
+
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -44,20 +47,6 @@ namespace ToWatch_FInalFinalForReal
 
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            NewMovieForm newMoviesForm = new();
-            newMoviesForm.StartPosition = FormStartPosition.CenterParent;
-            newMoviesForm.ShowDialog();
-        }
-
-
-
-        private void genrePickBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-        }
 
         private void genrePickBox_DropDown(object sender, EventArgs e)
         {
@@ -73,6 +62,18 @@ namespace ToWatch_FInalFinalForReal
 
             this.dataGridViewMovies.Refresh();
         }
-    }
+
+        private void dataGridViewGenres_SelectionChanged(object sender, EventArgs e)
+        {
+            if (this.dbContext != null)
+                {
+                var genre = (Genre)this.dataGridViewGenres.CurrentRow.DataBoundItem;
+                if (genre != null)
+                    {
+                        this.dbContext.Entry(genre).Collection(e => e.Movies).Load();
+                    }
+                }
+            }
+        }
 }
 

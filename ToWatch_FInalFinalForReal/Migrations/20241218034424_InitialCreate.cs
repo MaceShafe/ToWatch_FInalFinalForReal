@@ -16,13 +16,13 @@ namespace ToWatch_FInalFinalForReal.Migrations
                 name: "Genres",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    GenreID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.ID);
+                    table.PrimaryKey("PK_Genres", x => x.GenreID);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,7 +62,8 @@ namespace ToWatch_FInalFinalForReal.Migrations
                     Description = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true),
                     Rating = table.Column<int>(type: "int", maxLength: 1, nullable: true),
                     status = table.Column<int>(type: "int", nullable: true),
-                    PriorityId = table.Column<int>(type: "int", nullable: true)
+                    PriorityId = table.Column<int>(type: "int", nullable: true),
+                    GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,21 +79,21 @@ namespace ToWatch_FInalFinalForReal.Migrations
                 name: "GenreMovie",
                 columns: table => new
                 {
-                    GenresID = table.Column<int>(type: "int", nullable: false),
-                    MoviesMovieID = table.Column<int>(type: "int", nullable: false)
+                    GenreId = table.Column<int>(type: "int", nullable: false),
+                    GenresGenreID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GenreMovie", x => new { x.GenresID, x.MoviesMovieID });
+                    table.PrimaryKey("PK_GenreMovie", x => new { x.GenreId, x.GenresGenreID });
                     table.ForeignKey(
-                        name: "FK_GenreMovie_Genres_GenresID",
-                        column: x => x.GenresID,
+                        name: "FK_GenreMovie_Genres_GenresGenreID",
+                        column: x => x.GenresGenreID,
                         principalTable: "Genres",
-                        principalColumn: "ID",
+                        principalColumn: "GenreID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GenreMovie_Movies_MoviesMovieID",
-                        column: x => x.MoviesMovieID,
+                        name: "FK_GenreMovie_Movies_GenreId",
+                        column: x => x.GenreId,
                         principalTable: "Movies",
                         principalColumn: "MovieID",
                         onDelete: ReferentialAction.Cascade);
@@ -124,7 +125,7 @@ namespace ToWatch_FInalFinalForReal.Migrations
 
             migrationBuilder.InsertData(
                 table: "Genres",
-                columns: new[] { "ID", "Name" },
+                columns: new[] { "GenreID", "Name" },
                 values: new object[,]
                 {
                     { 1, "Action" },
@@ -134,8 +135,8 @@ namespace ToWatch_FInalFinalForReal.Migrations
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "MovieID", "Description", "PriorityId", "Rating", "Title", "status" },
-                values: new object[] { 1, null, null, null, "Avengers", null });
+                columns: new[] { "MovieID", "Description", "GenreId", "PriorityId", "Rating", "Title", "status" },
+                values: new object[] { 1, null, 0, null, null, "Avengers", null });
 
             migrationBuilder.InsertData(
                 table: "Users",
@@ -143,9 +144,9 @@ namespace ToWatch_FInalFinalForReal.Migrations
                 values: new object[] { 1, "User" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GenreMovie_MoviesMovieID",
+                name: "IX_GenreMovie_GenresGenreID",
                 table: "GenreMovie",
-                column: "MoviesMovieID");
+                column: "GenresGenreID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movies_PriorityId",

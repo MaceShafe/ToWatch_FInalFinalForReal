@@ -11,8 +11,8 @@ using ToWatch_FInalFinalForReal.Data;
 namespace ToWatch_FInalFinalForReal.Migrations
 {
     [DbContext(typeof(MoviesContext))]
-    [Migration("20241216222115_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241218040301_TestGenreMovie2")]
+    partial class TestGenreMovie2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,21 +23,6 @@ namespace ToWatch_FInalFinalForReal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GenreMovie", b =>
-                {
-                    b.Property<int>("GenresID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MoviesMovieID")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenresID", "MoviesMovieID");
-
-                    b.HasIndex("MoviesMovieID");
-
-                    b.ToTable("GenreMovie");
-                });
 
             modelBuilder.Entity("MovieUser", b =>
                 {
@@ -56,34 +41,33 @@ namespace ToWatch_FInalFinalForReal.Migrations
 
             modelBuilder.Entity("ToWatch_FInalFinalForReal.Models.Genre", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("GenreID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreID"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("GenreID");
 
                     b.ToTable("Genres");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            GenreID = 1,
                             Name = "Action"
                         },
                         new
                         {
-                            ID = 2,
+                            GenreID = 2,
                             Name = "Superhero"
                         },
                         new
                         {
-                            ID = 3,
+                            GenreID = 3,
                             Name = "Drama"
                         });
                 });
@@ -99,6 +83,9 @@ namespace ToWatch_FInalFinalForReal.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PriorityId")
                         .HasColumnType("int");
@@ -117,6 +104,8 @@ namespace ToWatch_FInalFinalForReal.Migrations
 
                     b.HasKey("MovieID");
 
+                    b.HasIndex("GenreId");
+
                     b.HasIndex("PriorityId");
 
                     b.ToTable("Movies");
@@ -125,6 +114,7 @@ namespace ToWatch_FInalFinalForReal.Migrations
                         new
                         {
                             MovieID = 1,
+                            GenreId = 2,
                             Title = "Avengers"
                         });
                 });
@@ -175,21 +165,6 @@ namespace ToWatch_FInalFinalForReal.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GenreMovie", b =>
-                {
-                    b.HasOne("ToWatch_FInalFinalForReal.Models.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ToWatch_FInalFinalForReal.Models.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesMovieID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MovieUser", b =>
                 {
                     b.HasOne("ToWatch_FInalFinalForReal.Models.Movie", null)
@@ -207,11 +182,24 @@ namespace ToWatch_FInalFinalForReal.Migrations
 
             modelBuilder.Entity("ToWatch_FInalFinalForReal.Models.Movie", b =>
                 {
+                    b.HasOne("ToWatch_FInalFinalForReal.Models.Genre", "Genre")
+                        .WithMany("Movies")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ToWatch_FInalFinalForReal.Models.Priority", "Priority")
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
+                    b.Navigation("Genre");
+
                     b.Navigation("Priority");
+                });
+
+            modelBuilder.Entity("ToWatch_FInalFinalForReal.Models.Genre", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

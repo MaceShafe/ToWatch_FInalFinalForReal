@@ -13,7 +13,6 @@ namespace ToWatch_FInalFinalForReal.Data
 
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
         public virtual DbSet<Priority> Priorities{ get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
 
@@ -25,13 +24,13 @@ namespace ToWatch_FInalFinalForReal.Data
 
                 // Seed Movies
                 modelBuilder.Entity<Movie>().HasData(
-                    new Movie { MovieID = 1, Title = "Avengers"});
+                    new Movie { MovieID = 1, Title = "Avengers", GenreId = 2});
 
                 // Seed Genres
                 modelBuilder.Entity<Genre>().HasData(
-                    new Genre { ID = 1, Name = "Action" },
-                    new Genre { ID = 2, Name = "Superhero" },
-                    new Genre { ID = 3, Name = "Drama" });
+                    new Genre { GenreID = 1, Name = "Action" },
+                    new Genre { GenreID = 2, Name = "Superhero" },
+                    new Genre { GenreID = 3, Name = "Drama" });
 
             //modelBuilder.Entity<Movie>()
             //.HasMany(m => m.Users)

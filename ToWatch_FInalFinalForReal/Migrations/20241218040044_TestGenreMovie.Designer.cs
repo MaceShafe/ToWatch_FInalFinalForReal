@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToWatch_FInalFinalForReal.Data;
 
@@ -10,9 +11,11 @@ using ToWatch_FInalFinalForReal.Data;
 namespace ToWatch_FInalFinalForReal.Migrations
 {
     [DbContext(typeof(MoviesContext))]
-    partial class MoviesContextModelSnapshot : ModelSnapshot
+    [Migration("20241218040044_TestGenreMovie")]
+    partial class TestGenreMovie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,7 @@ namespace ToWatch_FInalFinalForReal.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreID"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GenreID");
@@ -81,7 +85,7 @@ namespace ToWatch_FInalFinalForReal.Migrations
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
-                    b.Property<int?>("GenreId")
+                    b.Property<int>("GenreId")
                         .HasColumnType("int");
 
                     b.Property<int?>("PriorityId")
@@ -111,7 +115,7 @@ namespace ToWatch_FInalFinalForReal.Migrations
                         new
                         {
                             MovieID = 1,
-                            GenreId = 2,
+                            GenreId = 0,
                             Title = "Avengers"
                         });
                 });
@@ -181,7 +185,9 @@ namespace ToWatch_FInalFinalForReal.Migrations
                 {
                     b.HasOne("ToWatch_FInalFinalForReal.Models.Genre", "Genre")
                         .WithMany("Movies")
-                        .HasForeignKey("GenreId");
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ToWatch_FInalFinalForReal.Models.Priority", "Priority")
                         .WithMany()

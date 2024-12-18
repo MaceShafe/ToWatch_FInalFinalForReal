@@ -30,7 +30,9 @@ namespace ToWatch_FInalFinalForReal.Models
 
         public virtual ICollection<User>? Users { get; set; } = new List<User>();
 
-        public virtual ICollection<Genre>? Genres { get; set; }
+        public int? GenreId {  get; set; }
+
+        public virtual Genre? Genre { get; set; } = null!;
 
 
 
