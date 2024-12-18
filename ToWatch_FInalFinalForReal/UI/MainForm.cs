@@ -48,14 +48,6 @@ namespace ToWatch_FInalFinalForReal
         }
 
 
-        private void genrePickBox_DropDown(object sender, EventArgs e)
-        {
-            int genreNum = dbContext.Genres.Count();
-            var allgenres = dbContext.Genres.ToList();
-
-            debugText.Text = allgenres.ToString();
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             this.dbContext!.SaveChanges();
